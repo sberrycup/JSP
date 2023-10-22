@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.bitc'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    compileOnly group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.3'
+    compileOnly group: 'javax.servlet.jsp.jstl', name: 'javax.servlet.jsp.jstl-api', version: '1.2.2'
+
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+    implementation group: 'org.glassfish.web', name: 'javax.servlet.jsp.jstl', version: '1.2.5'
+    implementation group: 'com.jfinal', name: 'cos', version: '2022.2'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // https://mvnrepository.com/artifact/org.glassfish.main/javax.annotation
+    implementation group: 'org.glassfish.main', name: 'javax.annotation', version: '4.0-b33'
+}
+
+test {
+    useJUnitPlatform()
+}
